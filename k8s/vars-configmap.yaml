@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vars-configmap
+data:
+  TITLE_ENV: "Ambiente de desenvolvimento"
+  PROJECT_NAME: "Minha aplicação Node"

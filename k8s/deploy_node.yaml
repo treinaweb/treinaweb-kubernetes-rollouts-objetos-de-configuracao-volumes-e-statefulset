@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeserver
+  template:
+    metadata:
+      labels:
+        app: nodeserver
+    spec:
+      containers:
+      - name: nodeserver
+        image: thiagodavoglio/nodewebserver:v3.1
+        ports:
+        - containerPort: 3000
+        envFrom:
+          - configMapRef:
+              name: "vars-configmap"
+          - secretRef:
+              name: "secret-auth"
+        volumeMounts:
+          - mountPath: "/var/www/pvc"
+            name: app-vol
+      volumes:
+        - name: app-vol
+          persistentVolumeClaim:
+            claimName: mypvc
